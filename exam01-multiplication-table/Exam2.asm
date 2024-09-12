@@ -52,17 +52,15 @@ main proc
         
 
     ; PRINT HEADER
-        ; white space
+        ; white line block
             ; display SPACE
             mov ah, 02h
             mov cl, 20h
             mov dl, cl
             int 21h
-
             mov ah, 09h
             lea dx, form_blank
             int 21h
-            
             mov ah, 02h
             mov cl, 0Ah
             mov dl, cl	
@@ -76,9 +74,9 @@ main proc
             mov dl, cl
             int 21h
 
-            ; color white
+            ; white padding
             mov ah, 09h
-            mov bl, F7h 	; F = white bg, F = white fg
+            mov bl, 77h 	; F = white bg, F = white fg
             mov cx, 1	    ; changes 1 block
             int 10h		    ; instruction to apply color
             mov ah, 02h
@@ -86,17 +84,16 @@ main proc
             mov dl, cl
             int 21h
 
-            ; color red
+            ; head_univerisity
             mov ah, 09h
             mov bl, 4Fh 	; 4 = red bg, 7 = white fg
             mov cx, 76	    ; changes 76 block
             int 10h		    ; instruction to apply color
-
             mov ah, 09h
             lea dx, head_univerisity
             int 21h
 
-            ; color white
+            ; white padding
             mov ah, 09h
             mov bl, 7Fh 	; 7 = white bg, 7 = white fg
             mov cx, 1	    ; changes 1 block
@@ -118,7 +115,7 @@ main proc
             mov dl, cl
             int 21h
 
-            ; color white
+            ; white padding
             mov ah, 09h
             mov bl, 77h 	; 7 = white bg, 7 = white fg
             mov cx, 1	    ; changes 1 block
@@ -128,17 +125,16 @@ main proc
             mov dl, cl
             int 21h
 
-            ; color red
+            ; head_document_name
             mov ah, 09h
             mov bl, 4Fh 	; 4 = red bg, 7 = white fg
             mov cx, 76	    ; changes 76 block
             int 10h		    ; instruction to apply color
-
             mov ah, 09h
             lea dx, head_document_name
             int 21h
 
-            ; color white
+            ; white padding
             mov ah, 09h
             mov bl, 77h 	; 7 = white bg, 7 = white fg
             mov cx, 1	    ; changes 1 block
@@ -160,7 +156,7 @@ main proc
             mov dl, cl
             int 21h
 
-            ; color white
+            ; white padding
             mov ah, 09h
             mov bl, 77h 	; 7 = white bg, 7 = white fg
             mov cx, 1	    ; changes 1 block
@@ -170,36 +166,34 @@ main proc
             mov dl, cl
             int 21h
 
-            ; color red
+            ; red padding
             mov ah, 09h
             mov bl, 4Eh 	; 4 = red bg, E = yellow fg
             mov cx, 23	    ; changes 24 block
             int 10h		    ; instruction to apply color
-
             mov ah, 09h
             lea dx, head_inst_padding_l
             int 21h
 
-            ; color red blink
+            ; head_instruction red blink
             mov ah, 09h
-            mov bl, 8Eh 	; 4 = red bg, E = yellow fg
-            mov cx, 30	    ; changes 30 block
-            int 10h		    ; instruction to apply color
+            mov bl, 11001110b 	; blinking bit (1) reb bg (100) yellow text 1110
+            mov cx, 30	        ; changes 24 block
+            int 10h		        ; instruction to apply color
             mov ah, 09h
             lea dx, head_instruction
             int 21h
 
-            ; color red
+            ; red padding
             mov ah, 09h
             mov bl, 4Eh 	; 4 = red bg, E = yellow fg
             mov cx, 23	    ; changes 24 block
             int 10h		    ; instruction to apply color
-
             mov ah, 09h
             lea dx, head_inst_padding_r
             int 21h
 
-            ; color white
+            ; white padding
             mov ah, 09h
             mov bl, 77h 	; 7 = white bg, 7 = white fg
             mov cx, 1	    ; changes 1 block
@@ -217,19 +211,18 @@ main proc
 
 
     ; PRINT FORM BODY
-        ; white space
+        ; white line block
             ; display SPACE
             mov ah, 02h
             mov cl, 20h
             mov dl, cl
             int 21h
 
-            ; color white
+            ; white blank
             mov ah, 09h
             mov bl, 7Eh 	; 7 = white bg, E = yellow fg
             mov cx, 77	    ; changes 77 block
             int 10h		    ; instruction to apply color
-
             mov ah, 09h
             lea dx, form_blank
             int 21h
@@ -240,68 +233,71 @@ main proc
             int 21h
 
 
-        ; form line 1
-            ; display SPACE
+        ; FORM LINE #1: PERSONNEL TYPE AND STICKER TYPE
+            ; white padding
             mov ah, 02h
             mov cl, 20h
             mov dl, cl
             int 21h
 
-            ; color white
-            mov ah, 09h
-            mov bl, 70h 	; 7 = white bg, 0 = black fg
-            mov cx, 26	    ; changes 24 block
-            int 10h		    ; instruction to apply color
-            mov ah, 09h
-            lea dx, form_personnel_type
-            int 21h
-            
-            ; color white
-            mov ah, 09h
-            mov bl, 70h 	; 7 = white bg, 0 = black fg
-            mov cx, 13	    ; changes 24 block
-            int 10h		    ; instruction to apply color
-            mov ah, 09h
-            lea dx, form_drop_field
-            int 21h
+            ; form_personnel_type
+                ; label
+                mov ah, 09h
+                mov bl, 70h 	; 7 = white bg, 0 = black fg
+                mov cx, 26	    ; changes 24 block
+                int 10h		    ; instruction to apply color
+                mov ah, 09h
+                lea dx, form_personnel_type
+                int 21h
+                
+                ; field
+                mov ah, 09h
+                mov bl, 70h 	; 7 = white bg, 0 = black fg
+                mov cx, 13	    ; changes 24 block
+                int 10h		    ; instruction to apply color
+                mov ah, 09h
+                lea dx, form_drop_field
+                int 21h
 
-            ; display red V
-            mov ah, 09h
-            mov bl, 47h 	; 4 = red bg, 7 = white fg
-            mov cx, 3	    ; changes 76 block
-            int 10h		    ; instruction to apply color
-            mov ah, 09h
-            lea dx, form_drop_v
-            int 21h
+                ; red V
+                mov ah, 09h
+                mov bl, 47h 	; 4 = red bg, 7 = white fg
+                mov cx, 3	    ; changes 76 block
+                int 10h		    ; instruction to apply color
+                mov ah, 09h
+                lea dx, form_drop_v
+                int 21h
             
-            ; color white
-            mov ah, 09h
-            mov bl, 70h 	; 7 = white bg, 0 = black fg
-            mov cx, 26	    ; changes 24 block
-            int 10h		    ; instruction to apply color
-            mov ah, 09h
-            lea dx, form_sticker_type
-            int 21h
-            
-            ; color white
-            mov ah, 09h
-            mov bl, 70h 	; 7 = white bg, 0 = black fg
-            mov cx, 10	    ; changes 24 block
-            int 10h		    ; instruction to apply color
-            mov ah, 09h
-            lea dx, form_drop_field
-            int 21h
 
-            ; display red V
-            mov ah, 09h
-            mov bl, 47h 	; 4 = red bg, 7 = white fg
-            mov cx, 3	    ; changes 76 block
-            int 10h		    ; instruction to apply color
-            mov ah, 09h
-            lea dx, form_drop_v
-            int 21h
+            ; form_sticker_type
+                ; label
+                mov ah, 09h
+                mov bl, 70h 	; 7 = white bg, 0 = black fg
+                mov cx, 26	    ; changes 24 block
+                int 10h		    ; instruction to apply color
+                mov ah, 09h
+                lea dx, form_sticker_type
+                int 21h
+                
+                ; input
+                mov ah, 09h
+                mov bl, 70h 	; 7 = white bg, 0 = black fg
+                mov cx, 10	    ; changes 24 block
+                int 10h		    ; instruction to apply color
+                mov ah, 09h
+                lea dx, form_drop_field
+                int 21h
 
-            ; color white
+                ; red V
+                mov ah, 09h
+                mov bl, 47h 	; 4 = red bg, 7 = white fg
+                mov cx, 3	    ; changes 76 block
+                int 10h		    ; instruction to apply color
+                mov ah, 09h
+                lea dx, form_drop_v
+                int 21h
+
+            ; white padding
             mov ah, 09h
             mov bl, 77h 	; 7 = white bg, 7 = white fg
             mov cx, 1	    ; changes 1 block
@@ -317,50 +313,52 @@ main proc
             int 21h
 
 
-        ; form line 2
-            ; display SPACE
+        ; FORM LINE #2: APPLICANT NAME AND ID NUMBER
+            ; white padding
             mov ah, 02h
             mov cl, 20h
             mov dl, cl
             int 21h
 
-            ; color white
-            mov ah, 09h
-            mov bl, 70h 	; 7 = white bg, 0 = black fg
-            mov cx, 26	    ; changes 24 block
-            int 10h		    ; instruction to apply color
-            mov ah, 09h
-            lea dx, form_applicant_name
-            int 21h
+            ; form_applicant_name
+                ; label
+                mov ah, 09h
+                mov bl, 70h 	; 7 = white bg, 0 = black fg
+                mov cx, 26	    ; changes 24 block
+                int 10h		    ; instruction to apply color
+                mov ah, 09h
+                lea dx, form_applicant_name
+                int 21h
+                
+                ; field
+                mov ah, 09h
+                mov bl, 70h 	; 7 = white bg, 0 = black fg
+                mov cx, 13	    ; changes 24 block
+                int 10h		    ; instruction to apply color
+                mov ah, 09h
+                lea dx, form_text_field
+                int 21h
             
-            ; color white
-            mov ah, 09h
-            mov bl, 70h 	; 7 = white bg, 0 = black fg
-            mov cx, 13	    ; changes 24 block
-            int 10h		    ; instruction to apply color
-            mov ah, 09h
-            lea dx, form_text_field
-            int 21h
-            
-            ; color white
-            mov ah, 09h
-            mov bl, 70h 	; 7 = white bg, 0 = black fg
-            mov cx, 26	    ; changes 24 block
-            int 10h		    ; instruction to apply color
-            mov ah, 09h
-            lea dx, form_id_number
-            int 21h
-            
-            ; color white
-            mov ah, 09h
-            mov bl, 70h 	; 7 = white bg, 0 = black fg
-            mov cx, 13	    ; changes 24 block
-            int 10h		    ; instruction to apply color
-            mov ah, 09h
-            lea dx, form_text_field
-            int 21h
+            ; form_id_number
+                ; label
+                mov ah, 09h
+                mov bl, 70h 	; 7 = white bg, 0 = black fg
+                mov cx, 26	    ; changes 24 block
+                int 10h		    ; instruction to apply color
+                mov ah, 09h
+                lea dx, form_id_number
+                int 21h
+                
+                ; field
+                mov ah, 09h
+                mov bl, 70h 	; 7 = white bg, 0 = black fg
+                mov cx, 13	    ; changes 24 block
+                int 10h		    ; instruction to apply color
+                mov ah, 09h
+                lea dx, form_text_field
+                int 21h
 
-            ; color white
+            ; white padding
             mov ah, 09h
             mov bl, 77h 	; 7 = white bg, 7 = white fg
             mov cx, 1	    ; changes 1 block
@@ -376,50 +374,52 @@ main proc
             int 21h
 
 
-        ; form line 3
-            ; display SPACE
+        ; FORM LINE #3: MOBILE NUMBER AND ADDRESS
+            ; white padding
             mov ah, 02h
             mov cl, 20h
             mov dl, cl
             int 21h
 
-            ; color white
-            mov ah, 09h
-            mov bl, 70h 	; 7 = white bg, 0 = black fg
-            mov cx, 26	    ; changes 24 block
-            int 10h		    ; instruction to apply color
-            mov ah, 09h
-            lea dx, form_mobile_number
-            int 21h
+            ; form_mobile_number
+                ; label
+                mov ah, 09h
+                mov bl, 70h 	; 7 = white bg, 0 = black fg
+                mov cx, 26	    ; changes 24 block
+                int 10h		    ; instruction to apply color
+                mov ah, 09h
+                lea dx, form_mobile_number
+                int 21h
+                
+                ; field
+                mov ah, 09h
+                mov bl, 70h 	; 7 = white bg, 0 = black fg
+                mov cx, 13	    ; changes 24 block
+                int 10h		    ; instruction to apply color
+                mov ah, 09h
+                lea dx, form_text_field
+                int 21h
             
-            ; color white
-            mov ah, 09h
-            mov bl, 70h 	; 7 = white bg, 0 = black fg
-            mov cx, 13	    ; changes 24 block
-            int 10h		    ; instruction to apply color
-            mov ah, 09h
-            lea dx, form_text_field
-            int 21h
-            
-            ; color white
-            mov ah, 09h
-            mov bl, 70h 	; 7 = white bg, 0 = black fg
-            mov cx, 26	    ; changes 24 block
-            int 10h		    ; instruction to apply color
-            mov ah, 09h
-            lea dx, form_address
-            int 21h
-            
-            ; color white
-            mov ah, 09h
-            mov bl, 70h 	; 7 = white bg, 0 = black fg
-            mov cx, 13	    ; changes 24 block
-            int 10h		    ; instruction to apply color
-            mov ah, 09h
-            lea dx, form_text_field
-            int 21h
+            ; form_address
+                ; label
+                mov ah, 09h
+                mov bl, 70h 	; 7 = white bg, 0 = black fg
+                mov cx, 26	    ; changes 24 block
+                int 10h		    ; instruction to apply color
+                mov ah, 09h
+                lea dx, form_address
+                int 21h
+                
+                ; field
+                mov ah, 09h
+                mov bl, 70h 	; 7 = white bg, 0 = black fg
+                mov cx, 13	    ; changes 24 block
+                int 10h		    ; instruction to apply color
+                mov ah, 09h
+                lea dx, form_text_field
+                int 21h
 
-            ; color white
+            ; white padding
             mov ah, 09h
             mov bl, 77h 	; 7 = white bg, 7 = white fg
             mov cx, 1	    ; changes 1 block
@@ -429,57 +429,58 @@ main proc
             mov dl, cl
             int 21h
             
-            
             mov ah, 02h
             mov cl, 0Ah
             mov dl, cl	
             int 21h
 
 
-        ; form line 4
-            ; display SPACE
+        ; FORM LINE #4: VEHICLE MAKE AND PLATE NUMBER
+            ; white padding
             mov ah, 02h
             mov cl, 20h
             mov dl, cl
             int 21h
 
-            ; color white
-            mov ah, 09h
-            mov bl, 70h 	; 7 = white bg, 0 = black fg
-            mov cx, 26	    ; changes 24 block
-            int 10h		    ; instruction to apply color
-            mov ah, 09h
-            lea dx, form_vehicle_make
-            int 21h
+            ; form_vehicle_make
+                ; label
+                mov ah, 09h
+                mov bl, 70h 	; 7 = white bg, 0 = black fg
+                mov cx, 26	    ; changes 24 block
+                int 10h		    ; instruction to apply color
+                mov ah, 09h
+                lea dx, form_vehicle_make
+                int 21h
+                
+                ; field
+                mov ah, 09h
+                mov bl, 70h 	; 7 = white bg, 0 = black fg
+                mov cx, 13	    ; changes 24 block
+                int 10h		    ; instruction to apply color
+                mov ah, 09h
+                lea dx, form_text_field
+                int 21h
             
-            ; color white
-            mov ah, 09h
-            mov bl, 70h 	; 7 = white bg, 0 = black fg
-            mov cx, 13	    ; changes 24 block
-            int 10h		    ; instruction to apply color
-            mov ah, 09h
-            lea dx, form_text_field
-            int 21h
+            ; form_plate_number
+                ; label
+                mov ah, 09h
+                mov bl, 70h 	; 7 = white bg, 0 = black fg
+                mov cx, 26	    ; changes 24 block
+                int 10h		    ; instruction to apply color
+                mov ah, 09h
+                lea dx, form_plate_number
+                int 21h
             
-            ; color white
-            mov ah, 09h
-            mov bl, 70h 	; 7 = white bg, 0 = black fg
-            mov cx, 26	    ; changes 24 block
-            int 10h		    ; instruction to apply color
-            mov ah, 09h
-            lea dx, form_plate_number
-            int 21h
-            
-            ; color white
-            mov ah, 09h
-            mov bl, 70h 	; 7 = white bg, 0 = black fg
-            mov cx, 13	    ; changes 24 block
-            int 10h		    ; instruction to apply color
-            mov ah, 09h
-            lea dx, form_text_field
-            int 21h
+                ; field
+                mov ah, 09h
+                mov bl, 70h 	; 7 = white bg, 0 = black fg
+                mov cx, 13	    ; changes 24 block
+                int 10h		    ; instruction to apply color
+                mov ah, 09h
+                lea dx, form_text_field
+                int 21h
 
-            ; color white
+            ; white padding
             mov ah, 09h
             mov bl, 77h 	; 7 = white bg, 7 = white fg
             mov cx, 1	    ; changes 1 block
@@ -489,70 +490,75 @@ main proc
             mov dl, cl
             int 21h
             
-            
             mov ah, 02h
             mov cl, 0Ah
             mov dl, cl	
             int 21h
 
-        ; form line 5
-            ; display SPACE
+        ; FORM LINE #5: VEHICLE COLOR AND STICKER TYPE
+            ; white padding
             mov ah, 02h
             mov cl, 20h
             mov dl, cl
             int 21h
 
             ; form_vehicle_color
-            mov ah, 09h
-            mov bl, 70h 	; 7 = white bg, 0 = black fg
-            mov cx, 26	    ; changes 24 block
-            int 10h		    ; instruction to apply color
-            mov ah, 09h
-            lea dx, form_vehicle_color
-            int 21h
-            
-            mov ah, 09h
-            mov bl, 70h 	; 7 = white bg, 0 = black fg
-            mov cx, 13	    ; changes 24 block
-            int 10h		    ; instruction to apply color
-            mov ah, 09h
-            lea dx, form_drop_field
-            int 21h
+                ; label
+                mov ah, 09h
+                mov bl, 70h 	; 7 = white bg, 0 = black fg
+                mov cx, 26	    ; changes 24 block
+                int 10h		    ; instruction to apply color
+                mov ah, 09h
+                lea dx, form_vehicle_color
+                int 21h
+                
+                ; field
+                mov ah, 09h
+                mov bl, 70h 	; 7 = white bg, 0 = black fg
+                mov cx, 13	    ; changes 24 block
+                int 10h		    ; instruction to apply color
+                mov ah, 09h
+                lea dx, form_drop_field
+                int 21h
 
-            mov ah, 09h
-            mov bl, 47h 	; 4 = red bg, 7 = white fg
-            mov cx, 3	    ; changes 76 block
-            int 10h		    ; instruction to apply color
-            mov ah, 09h
-            lea dx, form_drop_v
-            int 21h
+                ; drop v
+                mov ah, 09h
+                mov bl, 47h 	; 4 = red bg, 7 = white fg
+                mov cx, 3	    ; changes 76 block
+                int 10h		    ; instruction to apply color
+                mov ah, 09h
+                lea dx, form_drop_v
+                int 21h
             
             ; form_sticker_type
-            mov ah, 09h
-            mov bl, 70h 	; 7 = white bg, 0 = black fg
-            mov cx, 26	    ; changes 24 block
-            int 10h		    ; instruction to apply color
-            mov ah, 09h
-            lea dx, form_sticker_type
-            int 21h
-            
-            mov ah, 09h
-            mov bl, 70h 	; 7 = white bg, 0 = black fg
-            mov cx, 10	    ; changes 24 block
-            int 10h		    ; instruction to apply color
-            mov ah, 09h
-            lea dx, form_drop_field
-            int 21h
+                ; label
+                mov ah, 09h
+                mov bl, 70h 	; 7 = white bg, 0 = black fg
+                mov cx, 26	    ; changes 24 block
+                int 10h		    ; instruction to apply color
+                mov ah, 09h
+                lea dx, form_sticker_type
+                int 21h
+                
+                ; field 
+                mov ah, 09h
+                mov bl, 70h 	; 7 = white bg, 0 = black fg
+                mov cx, 10	    ; changes 24 block
+                int 10h		    ; instruction to apply color
+                mov ah, 09h
+                lea dx, form_drop_field
+                int 21h
 
-            mov ah, 09h
-            mov bl, 47h 	; 4 = red bg, 7 = white fg
-            mov cx, 3	    ; changes 76 block
-            int 10h		    ; instruction to apply color
-            mov ah, 09h
-            lea dx, form_drop_v
-            int 21h
+                ; drop v
+                mov ah, 09h
+                mov bl, 47h 	; 4 = red bg, 7 = white fg
+                mov cx, 3	    ; changes 76 block
+                int 10h		    ; instruction to apply color
+                mov ah, 09h
+                lea dx, form_drop_v
+                int 21h
 
-            ; last space
+            ; white padding
             mov ah, 09h
             mov bl, 77h 	; 7 = white bg, 7 = white fg
             mov cx, 1	    ; changes 1 block
@@ -568,7 +574,7 @@ main proc
             int 21h
 
 
-        ; white space
+        ; white line block
             ; display SPACE
             mov ah, 02h
             mov cl, 20h
@@ -590,39 +596,40 @@ main proc
             mov dl, cl	
             int 21h
 
-        ; for submit
+        ; FORM SUBMIT
             ; display SPACE
             mov ah, 02h
             mov cl, 20h
             mov dl, cl
             int 21h
 
-            ; form_submit_padding
-            mov ah, 09h
-            mov bl, 70h 	; 7 = white bg, 0 = black fg
-            mov cx, 34	    ; changes 24 block
-            int 10h		    ; instruction to apply color
-            mov ah, 09h
-            lea dx, form_submit_padding
-            int 21h
+            ; form submit
+                ; left padding
+                mov ah, 09h
+                mov bl, 70h 	; 7 = white bg, 0 = black fg
+                mov cx, 34	    ; changes 24 block
+                int 10h		    ; instruction to apply color
+                mov ah, 09h
+                lea dx, form_submit_padding
+                int 21h
 
-            ; form_submit
-            mov ah, 09h
-            mov bl, 4Eh 	; 4 = red bg, E = white fg
-            mov cx, 8	    ; changes 8 block
-            int 10h		    ; instruction to apply color
-            mov ah, 09h
-            lea dx, form_submit 
-            int 21h
+                ; form_submit
+                mov ah, 09h
+                mov bl, 4Eh 	; 4 = red bg, E = white fg
+                mov cx, 8	    ; changes 8 block
+                int 10h		    ; instruction to apply color
+                mov ah, 09h
+                lea dx, form_submit 
+                int 21h
 
-            ; form_submit_padding
-            mov ah, 09h
-            mov bl, 70h 	; 7 = white bg, 0 = black fg
-            mov cx, 34	    ; changes 24 block
-            int 10h		    ; instruction to apply color
-            mov ah, 09h
-            lea dx, form_submit_padding
-            int 21h
+                ; right padding
+                mov ah, 09h
+                mov bl, 70h 	; 7 = white bg, 0 = black fg
+                mov cx, 34	    ; changes 24 block
+                int 10h		    ; instruction to apply color
+                mov ah, 09h
+                lea dx, form_submit_padding
+                int 21h
             
             ; last space
             mov ah, 09h
@@ -639,7 +646,7 @@ main proc
             mov dl, cl	
             int 21h
 
-        ; white space
+        ; white line block
             ; display SPACE
             mov ah, 02h
             mov cl, 20h
@@ -662,7 +669,7 @@ main proc
             int 21h
 
 
-        ; form copyright
+        ; FORM COPYRIGHT
             ; display SPACE
             mov ah, 02h
             mov cl, 20h
@@ -683,7 +690,7 @@ main proc
             mov dl, cl	
             int 21h
 
-        ; white space
+        ; white line block
             ; display SPACE
             mov ah, 02h
             mov cl, 20h
@@ -721,7 +728,7 @@ main proc
             mov dl, cl	
             int 21h
 
-        ; form thank you
+        ; FORM THANK YOU
             ; display SPACE
             mov ah, 02h
             mov cl, 20h
