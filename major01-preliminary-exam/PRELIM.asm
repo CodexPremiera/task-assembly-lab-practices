@@ -1,6 +1,6 @@
-; PRELIM.ASM
+; Filename: PRELIM.ASM
 ; CS243 Lab Prelim Exam First Semester SY 2024-2025
-; Student Name: Ashley Ken Comandao
+; Student Name: ASHLEY KEN A. COMANDAO
 ; Date Finished: September 12, 2024
 
 .model small
@@ -8,13 +8,13 @@
 .data
     head_univerisity    db '                 Cebu Institute of Technology - University                 $'
     head_document_name  db '                     VEHICLE STICKER APPLICATION FORM                      $'
-    head_inst_padding_r db '                      $'
-    head_inst_padding_l db '                       $'
-    head_instruction    db 'Please fill out the form below$'
+    head_inst_padding_l db '                        $'
+    head_inst_padding_r db '                        $'
+    head_instruction    db 'Please fill out form below.$'
 
     form_blank          db '                                                                              $'
-    form_text_field     db '_____________$'
-    form_drop_field     db '__________$'
+    form_text_field     db '             $'
+    form_drop_field     db '          $'
     form_drop_v         db ' V $'
 
     form_personnel_type db ' Personnel Type:          $'
@@ -35,8 +35,8 @@
     form_submit         db ' SUBMIT $'
     form_submit_padding db '                                  $'
 
-    form_copyright      db '                      Copyright 2024 ASHLEY KEN COMANDAO                     $'
-    form_thank_you      db '                                  Thank you!                                   $'
+    form_copyright      db '                     Copyright 2024 ASHLEY KEN A. COMANDAO                   $'
+    form_thank_you      db '                                 Thank you!                                   $'
     
     hello db 'Hello, World!$', 0
 
@@ -159,8 +159,8 @@ main proc
             ; white padding
             mov ah, 09h
             mov bl, 77h 	; 7 = white bg, 7 = white fg
-            mov cx, 1	    ; changes 1 block
-            int 10h		    ; instruction to apply color
+            mov cx, 1	    	; changes 1 block
+            int 10h		; instruction to apply color
             mov ah, 02h
             mov cl, 20h
             mov dl, cl
@@ -168,9 +168,9 @@ main proc
 
             ; red padding
             mov ah, 09h
-            mov bl, 4Eh 	; 4 = red bg, E = yellow fg
-            mov cx, 23	    ; changes 24 block
-            int 10h		    ; instruction to apply color
+            mov bl, 46h 	; 4 = red bg, 6 = yellow fg
+            mov cx, 24	    	; changes 24 block
+            int 10h		; instruction to apply color
             mov ah, 09h
             lea dx, head_inst_padding_l
             int 21h
@@ -178,7 +178,7 @@ main proc
             ; head_instruction red blink
             mov ah, 09h
             mov bl, 11001110b 	; blinking bit (1) reb bg (100) yellow text 1110
-            mov cx, 30	        ; changes 24 block
+            mov cx, 31	        ; changes 24 block
             int 10h		        ; instruction to apply color
             mov ah, 09h
             lea dx, head_instruction
@@ -187,7 +187,7 @@ main proc
             ; red padding
             mov ah, 09h
             mov bl, 4Eh 	; 4 = red bg, E = yellow fg
-            mov cx, 23	    ; changes 24 block
+            mov cx, 24	    ; changes 24 block
             int 10h		    ; instruction to apply color
             mov ah, 09h
             lea dx, head_inst_padding_r
@@ -243,7 +243,7 @@ main proc
             ; form_personnel_type
                 ; label
                 mov ah, 09h
-                mov bl, 70h 	; 7 = white bg, 0 = black fg
+                mov bl, 70h 	    ; 7 = white bg, 0 = black fg
                 mov cx, 26	    ; changes 24 block
                 int 10h		    ; instruction to apply color
                 mov ah, 09h
@@ -252,9 +252,9 @@ main proc
                 
                 ; field
                 mov ah, 09h
-                mov bl, 70h 	; 7 = white bg, 0 = black fg
-                mov cx, 13	    ; changes 24 block
-                int 10h		    ; instruction to apply color
+                mov bl, 60h 	  ; 6 = orange bg, 0 = black fg
+                mov cx, 13	  ; changes 24 block
+                int 10h		  ; instruction to apply color
                 mov ah, 09h
                 lea dx, form_drop_field
                 int 21h
@@ -279,9 +279,9 @@ main proc
                 lea dx, form_sticker_type
                 int 21h
                 
-                ; input
+                ; field
                 mov ah, 09h
-                mov bl, 70h 	; 7 = white bg, 0 = black fg
+                mov bl, 60h 	    ; 6 = orange bg, 0 = black fg
                 mov cx, 10	    ; changes 24 block
                 int 10h		    ; instruction to apply color
                 mov ah, 09h
@@ -314,6 +314,28 @@ main proc
 
 
         ; FORM LINE #2: APPLICANT NAME AND ID NUMBER
+	    ; white line block
+            	; display SPACE
+            	mov ah, 02h
+            	mov cl, 20h
+            	mov dl, cl
+            	int 21h
+
+            	; white blank
+            	mov ah, 09h
+            	mov bl, 7Eh 	; 7 = white bg, E = yellow fg
+            	mov cx, 77	    ; changes 77 block
+            	int 10h		    ; instruction to apply color
+            	mov ah, 09h
+            	lea dx, form_blank
+            	int 21h
+            
+            	mov ah, 02h
+            	mov cl, 0Ah
+            	mov dl, cl	
+            	int 21h
+
+
             ; white padding
             mov ah, 02h
             mov cl, 20h
@@ -332,7 +354,7 @@ main proc
                 
                 ; field
                 mov ah, 09h
-                mov bl, 70h 	; 7 = white bg, 0 = black fg
+                mov bl, 60h 	    ; 6 = orange bg, 0 = black fg
                 mov cx, 13	    ; changes 24 block
                 int 10h		    ; instruction to apply color
                 mov ah, 09h
@@ -351,7 +373,7 @@ main proc
                 
                 ; field
                 mov ah, 09h
-                mov bl, 70h 	; 7 = white bg, 0 = black fg
+                mov bl, 60h 	    ; 6 = orange bg, 0 = black fg
                 mov cx, 13	    ; changes 24 block
                 int 10h		    ; instruction to apply color
                 mov ah, 09h
@@ -375,6 +397,27 @@ main proc
 
 
         ; FORM LINE #3: MOBILE NUMBER AND ADDRESS
+	    ; white line block
+            	; display SPACE
+            	mov ah, 02h
+            	mov cl, 20h
+            	mov dl, cl
+            	int 21h
+
+            	; white blank
+            	mov ah, 09h
+            	mov bl, 7Eh 	; 7 = white bg, E = yellow fg
+            	mov cx, 77	    ; changes 77 block
+            	int 10h		    ; instruction to apply color
+            	mov ah, 09h
+            	lea dx, form_blank
+            	int 21h
+            
+            	mov ah, 02h
+            	mov cl, 0Ah
+            	mov dl, cl	
+            	int 21h
+
             ; white padding
             mov ah, 02h
             mov cl, 20h
@@ -393,7 +436,7 @@ main proc
                 
                 ; field
                 mov ah, 09h
-                mov bl, 70h 	; 7 = white bg, 0 = black fg
+                mov bl, 60h 	    ; 6 = orange bg, 0 = black fg
                 mov cx, 13	    ; changes 24 block
                 int 10h		    ; instruction to apply color
                 mov ah, 09h
@@ -412,7 +455,7 @@ main proc
                 
                 ; field
                 mov ah, 09h
-                mov bl, 70h 	; 7 = white bg, 0 = black fg
+                mov bl, 60h 	    ; 6 = orange bg, 0 = black fg
                 mov cx, 13	    ; changes 24 block
                 int 10h		    ; instruction to apply color
                 mov ah, 09h
@@ -436,6 +479,27 @@ main proc
 
 
         ; FORM LINE #4: VEHICLE MAKE AND PLATE NUMBER
+	    ; white line block
+            	; display SPACE
+            	mov ah, 02h
+            	mov cl, 20h
+            	mov dl, cl
+            	int 21h
+
+            	; white blank
+            	mov ah, 09h
+            	mov bl, 7Eh 	; 7 = white bg, E = yellow fg
+            	mov cx, 77	    ; changes 77 block
+            	int 10h		    ; instruction to apply color
+            	mov ah, 09h
+            	lea dx, form_blank
+            	int 21h
+            
+            	mov ah, 02h
+            	mov cl, 0Ah
+            	mov dl, cl	
+            	int 21h
+
             ; white padding
             mov ah, 02h
             mov cl, 20h
@@ -454,7 +518,7 @@ main proc
                 
                 ; field
                 mov ah, 09h
-                mov bl, 70h 	; 7 = white bg, 0 = black fg
+                mov bl, 60h 	    ; 6 = orange bg, 0 = black fg
                 mov cx, 13	    ; changes 24 block
                 int 10h		    ; instruction to apply color
                 mov ah, 09h
@@ -473,7 +537,7 @@ main proc
             
                 ; field
                 mov ah, 09h
-                mov bl, 70h 	; 7 = white bg, 0 = black fg
+                mov bl, 60h 	    ; 6 = orange bg, 0 = black fg
                 mov cx, 13	    ; changes 24 block
                 int 10h		    ; instruction to apply color
                 mov ah, 09h
@@ -495,7 +559,28 @@ main proc
             mov dl, cl	
             int 21h
 
-        ; FORM LINE #5: VEHICLE COLOR AND STICKER TYPE
+        ; FORM LINE #5: VEHICLE COLOR AND TYPE
+	    ; white line block
+            	; display SPACE
+            	mov ah, 02h
+            	mov cl, 20h
+            	mov dl, cl
+            	int 21h
+
+            	; white blank
+            	mov ah, 09h
+            	mov bl, 7Eh 	; 7 = white bg, E = yellow fg
+            	mov cx, 77	    ; changes 77 block
+            	int 10h		    ; instruction to apply color
+            	mov ah, 09h
+            	lea dx, form_blank
+            	int 21h
+            
+            	mov ah, 02h
+            	mov cl, 0Ah
+            	mov dl, cl	
+            	int 21h
+
             ; white padding
             mov ah, 02h
             mov cl, 20h
@@ -514,7 +599,7 @@ main proc
                 
                 ; field
                 mov ah, 09h
-                mov bl, 70h 	; 7 = white bg, 0 = black fg
+                mov bl, 60h 	    ; 6 = orange bg, 0 = black fg
                 mov cx, 13	    ; changes 24 block
                 int 10h		    ; instruction to apply color
                 mov ah, 09h
@@ -537,12 +622,12 @@ main proc
                 mov cx, 26	    ; changes 24 block
                 int 10h		    ; instruction to apply color
                 mov ah, 09h
-                lea dx, form_sticker_type
+                lea dx, form_vehicle_type
                 int 21h
                 
                 ; field 
                 mov ah, 09h
-                mov bl, 70h 	; 7 = white bg, 0 = black fg
+                mov bl, 60h 	    ; 6 = orange bg, 0 = black fg
                 mov cx, 10	    ; changes 24 block
                 int 10h		    ; instruction to apply color
                 mov ah, 09h
