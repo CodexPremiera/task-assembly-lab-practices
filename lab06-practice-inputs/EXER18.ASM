@@ -27,3 +27,30 @@ ProgramStart:
     and ax, ax                      ; check if any input was read
     jz Done
     mov cx, ax
+
+    push cx                         ; save the string length
+    mov bx, OFFSET StringToReverse
+    mov si, OFFSET ReverseString
+    add si, cx
+    dec si                          ; point to the end 
+
+    ReverseLoop:
+        mov al, [bx]                    ; get the next character
+        mov [si], al                    ; store the characters in reverse
+        inc bx                          ; point to the next character
+        dec si                          ; pont to previous location
+
+        loop ReverseLoop                ; move next character, if any
+        pop cx                          ; get back the string length
+        
+        ; print the string
+        mov ah,40h                      ; DOS write form handle function
+        mov bx,1                        ; standard output handle
+        mov dx, OFFSET StringToReverse
+        int 21h 
+
+Done: 
+    mov ah, 4ch 
+    int 21h
+
+END ProgramStart
