@@ -1,5 +1,5 @@
 ; Filename: EXER21.ASM 
-; Programmer Name: NATHANAEL JEDD N. DEL CASTILLO 
+; Programmer Name: ASHLEY KEN COMANDAO
 ; Date: SEPTEMBER 20, 2024 
 ; Description: This assembly language program will ask for your first name, middle name, and 
 ; family name. Then display "Hello, FIRST NAME MIDDLE NAME FAMILY NAME!" 
@@ -81,7 +81,7 @@ ProgramStart:
  
     mov dx, OFFSET last  
     pop cx 
-    call printNumString 
+    call printTrimString 
  
     mov dx, OFFSET exclam  
     pop cx  
@@ -113,6 +113,19 @@ printNumString:
  
     mov ah, 02h 
     mov dl, ' ' 
+    int 21h 
+ 
+    pop bx 
+    pop ax 
+    ret  
+
+printTrimString: 
+ 
+    push ax  
+    push bx  
+    mov ah, 40h 
+    add cx, -2 
+    mov bx, 1 
     int 21h 
  
     pop bx 
