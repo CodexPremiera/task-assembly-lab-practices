@@ -1,105 +1,53 @@
 ; Filename: Exer8.asm
-; Create your own multicolored character with blinking parts
-; ASHLEY KEN COMANDAO
-; Date: September 5, 2024
+; Display text using string variables (4 string variables)
+; Ashley Ken Comandao
+; Date: August 30, 2024
 
 .model small
+.stack 100h
+
 .data
-    blank_text db '--------------$', 0
-
+	msg1 db "Ashley Ken Comandao$"
+	msg2 db "Bachelor of Science in Computer Science 2nd Year$"
+	msg3 db "College of Computer Studies$"
+	msg4 db "Cebu Institute of Technology - University$"
+	
 .code
-.stack 100
-
+.startup
 start:
-
-; row 1
-    ; paint white
+	
+	; data
+	mov ax, @data
+	mov ds, ax
+	
+	
 	mov ah, 09h
-	mov bl, 71h 	; 7 = white bg, 0 = black fg
-	mov cx, 14	; changes 14 blocks
-	int 10h		; instruction to apply color
-
-    ; display blank_text
-    mov ah, 09h
-    lea dx, blank_text
-    int 21h
-    
-    ; display ENTER
-    mov ah, 02h
-    mov cl, 0Ah
-    mov dl, cl
-    int 21h
-
-; row 2
-    ; paint white
+	mov dx, offset msg1
+	int 21h
+	
+	mov ah, 02h
+	mov dl, 0ah  ;newline
+	int 21h
+	
 	mov ah, 09h
-	mov bl, 71h 	; 7 = white bg, 0 = black fg
-	mov cx, 14	; changes 14 blocks
-	int 10h		; instruction to apply color
-
-    ; display SPACE
-    mov ah, 02h
-    mov cl, 20h
-    mov dl, cl
-    int 21h
-    mov ah, 02h
-    mov cl, 20h
-    mov dl, cl
-    int 21h
-    mov ah, 02h
-    mov cl, 20h
-    mov dl, cl
-    int 21h
-    mov ah, 02h
-    mov cl, 20h
-    mov dl, cl
-    int 21h
-    mov ah, 02h
-    mov cl, 20h
-    mov dl, cl
-    int 21h
-    mov ah, 02h
-    mov cl, 20h
-    mov dl, cl
-    int 21h
-    mov ah, 02h
-    mov cl, 20h
-    mov dl, cl
-    int 21h
-    mov ah, 02h
-    mov cl, 20h
-    mov dl, cl
-    int 21h
-    mov ah, 02h
-    mov cl, 20h
-    mov dl, cl
-    int 21h
-    mov ah, 02h
-    mov cl, 20h
-    mov dl, cl
-    int 21h
-    mov ah, 02h
-    mov cl, 20h
-    mov dl, cl
-    int 21h
-    mov ah, 02h
-    mov cl, 20h
-    mov dl, cl
-    int 21h
-    mov ah, 02h
-    mov cl, 20h
-    mov dl, cl
-    int 21h
-    mov ah, 02h
-    mov cl, 20h
-    mov dl, cl
-    int 21h
-    
-    ; display ENTER
-    mov ah, 02h
-    mov cl, 0Ah
-    mov dl, cl
-    int 21h
+	mov dx, offset msg2
+	int 21h
+	
+	mov ah, 02h
+	mov dl, 0ah  ;newline
+	int 21h
+	
+	mov ah, 09h
+	mov dx, offset msg3
+	int 21h
+	
+	mov ah, 02h
+	mov dl, 0ah  ;newline
+	int 21h
+	
+	mov ah, 09h
+	mov dx, offset msg4
+	int 21h
 
 int 27h
 end start
