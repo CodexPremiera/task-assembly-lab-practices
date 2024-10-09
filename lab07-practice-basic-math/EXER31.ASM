@@ -1,8 +1,8 @@
 ; Filename: EXER31.ASM
 ; Programmer Name: ASHLEY KEN COMANDAO
 ; Date: September 28, 2024
-; Description: Make a program to input two integers. Compare the two
-; integers. Display which one is smaller and bigger of the two integers.
+; Description: Make a program to input one integer. Display numbers from 1 
+; up until that number, one per line
 
 
 .MODEL SMALL

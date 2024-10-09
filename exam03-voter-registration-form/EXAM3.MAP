@@ -1,9 +1,9 @@
 
  Start  Stop   Length Name               Class
 
- 00000H 0022AH 0022BH _TEXT              CODE
- 00230H 02F7AH 02D4BH _DATA              DATA
- 02F80H 0307FH 00100H STACK              STACK
+ 00000H 00295H 00296H _TEXT              CODE
+ 002A0H 0094FH 006B0H _DATA              DATA
+ 00950H 00A4FH 00100H STACK              STACK
 
   Address         Publics by Name
 
