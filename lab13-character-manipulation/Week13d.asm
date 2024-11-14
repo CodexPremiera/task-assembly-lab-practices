@@ -25,8 +25,7 @@ input_loop:
         ; Get user input
         MOV AH, 01H ; Function to get input character
         INT 21H
-        SUB AL, '0' ; Convert ASCII to integer by subtracting ASCII
-        '0'
+        SUB AL, '0' ; Convert ASCII to integer by subtracting ASCII '0'
         ; Check if input is zero
         CMP AL, 0 ; Compare input with 0
         JE display_thank_you ; If input is zero, jump to thank you message

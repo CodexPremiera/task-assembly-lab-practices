@@ -27,9 +27,7 @@ input_loop:
         ; Get user input
         MOV AH, 01H ; Function to get input character
         INT 21H
-        SUB AL, '0' ; Convert ASCII to integer by subtracting ASCII
-        '0'
-        ; Check if input is within range 1-8
+        SUB AL, '0' ; Convert ASCII to integer by subtracting ASCII '0' ; Check if input is within range 1-8
         CMP AL, 1 ; Check if less than 1
         JB show_error ; If so, jump to error message
 
