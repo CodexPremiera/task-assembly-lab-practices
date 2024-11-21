@@ -12,8 +12,7 @@
 MAIN PROC
         MOV AX, @DATA
         MOV DS, AX
-        ; Initialize counter in BL (using BL instead of CL to avoid issues with
-        division)
+        ; Initialize counter in BL (using BL instead of CL to avoid issues with division)
         MOV BL, 1
         
         PRINT_LOOP:
