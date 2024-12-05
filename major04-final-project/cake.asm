@@ -198,27 +198,34 @@ MAIN PROC
 
     CALL CLEAR_SCREEN
 
-    ; ; text blue
-    ; mov ah, 06h
-    ; mov ch, 1 ; row start
-    ; mov cl, 1 ; col start
-    ; mov dh, 1  ; row end
-    ; mov dl, 24  ; col end
-    ; mov bh, 01h ; black, blue
-    ; int 10h
+    ; white, black
+    mov ah, 09h
+    mov bh, 0
+    mov bl, 70h   ; white, black
+    mov cx, 80 
+    int 10h
 
-    ; ; text red
-    ; mov ah, 06h
-    ; mov ch, 1 ; row start
-    ; mov cl, 25 ; col start
-    ; mov dh, 1  ; row end
-    ; mov dl, 31  ; col end
-    ; mov bh, 04h ; black, red
-    ; int 10h
+    ; text gold
+    mov ah, 06h
+    mov ch, 3 ; row start
+    mov cl, 1 ; col start
+    mov dh, 7  ; row end
+    mov dl, 78  ; col end
+    mov bh, 06h ; black, blue
+    int 10h
+
+    ; text gold
+    mov ah, 06h
+    mov ch, 8 ; row start
+    mov cl, 18 ; col start
+    mov dh, 18  ; row end
+    mov dl, 60  ; col end
+    mov bh, 06h ; black, blue
+    int 10h
 
     CALL DISPLAY_HEADER
  
-    ;CALL BRANDING_COLORS
+    ; CALL BRANDING_COLORS
 
     LEA DX, branding2
     MOV AH, 09H
@@ -1700,9 +1707,9 @@ REVIEW_order_3 PROC
 REVIEW_order_3 ENDP
 
 print_acc PROC
-    LEA DX, space
-    MOV AH, 09H
-    INT 21H
+    ; LEA DX, space
+    ; MOV AH, 09H
+    ; INT 21H
 
     LEA DX, landing_header
     MOV AH, 09H
