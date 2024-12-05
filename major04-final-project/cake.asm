@@ -1,5 +1,11 @@
 ; Name of System: Wildcakes Cakeshop Cafe Inventory System
-; Description: The program allows users to create accounts and order specific items in a list for their minbenbo switch.
+
+; Description: Our cake shop management software streamlines your business operations, 
+; from inventory tracking to online order processing. Effortlessly manage customer accounts, 
+; track sales, and showcase your delightful cake flavors like Ube, Chocolate, Mango, 
+; Red Velvet, and Oreo Cream. Enhance customer experience and boost efficiency with 
+; our all-in-one solution tailored for your bakery's needs!.
+
 ; Programmer: ASHLEY KEN COMANDAO
 ; Date : December 5, 2024
 
@@ -43,9 +49,13 @@
 
     enter_username  DB 13,10,' Enter Username: $'
     enter_password  DB 13,10,' Enter Password: $'
+    enter_blank  DB 13,10
+                    DB 13,10,' Press any key and enter to continue: $'
 
-    register_succ   DB 13,10,' ---User Register was Successful!---$',13,10
-    login_succ      DB 13,10,' ---User Login was Successful!---$',13,10
+    register_succ   DB 13,10,' ---User Register was Successful!---',13,10
+                    DB '   $',13, 10  
+    login_succ      DB 13,10,' ---User Login was Successful!---',13,10
+                    DB '   $',13, 10  
 
     max_register      DB 13,10,' We have reached the max number of registered users! We apologize for the inconvenience.$',13,10
     username_exists   DB 13,10,' The username is already in use, please choose another one.$',13,10
@@ -54,7 +64,7 @@
     landing_login    DB ' 1. Login to existing Account                                                 $',13,10
     landing_register DB ' 2. Register new Account                                                      $',13,10
     landing_exit     DB ' 3. Exit                                                                      ',13,10
-                     DB ' Enter your choice: $',13,10
+                     DB '  Enter your choice: $',13,10
 
     menu_title     DB ' Welcome to the Main Menu!                                                    $'
     menue_makeedit DB ' 1. Make/Edit order                                                           $'
@@ -66,7 +76,9 @@
     menu_error  DB ' ERROR! Invalid choice!                                                        $',13,10
     login_error DB ' ERROR! Account is not recognized!                                             $',13,10
 
-    order_accessories  DB '---- SELECT YOUR CAKE ---- ', 13,10
+    order_accessories  DB '---- MAKE/EDIT ORDER ---- ', 13,10
+                    DB ' ', 13,10
+                    DB '>>> CAKE MENU', 13,10
                     DB ' Chocolate    -  P400.00', 13,10
                     DB ' Ube          -  P425.00', 13,10
                     DB ' Mango        -  P450.00', 13,10
@@ -79,9 +91,11 @@
     capture_price       dw 475
     powerbank_price     dw 500
 
-    item_amount  DB 13,10,13,10,'  Input number of an item: $'
+    item_amount  DB 13,10,13,10,' >>> Input number of an item: $'
 
-    curr_order           DB '----YOUR CURRENT ORDER----$'
+    curr_order           DB '---- REVIEW CURRENT ORDER ----'
+                         DB ' ', 13,10
+                         DB '>>> YOUR CAKE ORDERS $', 13,10
     curr_case            DB 13,10,' Chocolate    - $'
     curr_glass           DB 13,10,' Ube          - $'
     curr_grip_case       DB 13,10,' Mango        - $'
@@ -93,7 +107,7 @@
     order_grip_case      DB '  Mango      : $'
     order_capture        DB '  Red Velvet : $'
     order_powerbank      DB '  Oreo Cream : $'
-    order_total          DB 13,10,'  Your total is: P$'
+    order_total          DB 13,10,'>>> Your total is: P$'
 
     delete_order_prompt DB ' Are you sure you want to delete your order?',13,10
                         DB ' [YES (Y) / NO (N)]: $',13,10
@@ -101,8 +115,13 @@
     deleted_order_msg          DB 13,10,' ---Deleted Order---$',13,10
     cancel_delete_order_msg    DB 13,10,' ---Delete Cancelled---$',13,10
 
-    exit_msg    DB 'Thank you for ordering! We hope you enjoy your cakes!$'
-    landing_exit_prompt DB ' Thank you for using the app!',13,10,' Order again soon!$'
+    exit_msg    DB ' Thank you for ordering! We hope you enjoy your cakes!'
+                DB ' ', 13, 10
+                DB '$',13, 10  
+    landing_exit_prompt DB ' ', 13, 10
+                        DB ' Thank you for using the app!',13,10,' Order again soon!',13,10
+                        DB ' ------------------------------------------------------------------------------',13, 10
+                        DB '$',13, 10, 13, 10,  
 
     usercounter dw 1
 
@@ -111,6 +130,7 @@
     ;inputted values will be compared to the appropriate username and password variables to determine which account is in use
     login_username_input DB 50 DUP('$')
     login_password_input DB 50 DUP('$')
+    blank_input DB 50 DUP('$')
 
     ; variables for different users
     username1 DB 50 DUP('$')
@@ -280,6 +300,8 @@ ACC1_LOGGING:
     cmp AL, 0
     je INVALID_LOGIN
 
+    CALL CLEAR_SCREEN
+
     LEA DX, login_succ
     MOV AH, 09h               ; DOS function to display a string 
     INT 21h 
@@ -300,6 +322,8 @@ ACC2_LOGGING:
     cmp AL, 0
     je INVALID_LOGIN
 
+    CALL CLEAR_SCREEN
+
     LEA DX, login_succ
     MOV AH, 09h               ; DOS function to display a string 
     INT 21h 
@@ -319,6 +343,8 @@ ACC3_LOGGING:
     CALL STRING_CHECKER          ; compares registered password and password inputted during login, pushes 1 to AL if same and 0 if not
     cmp AL, 0
     je INVALID_LOGIN
+
+    CALL CLEAR_SCREEN
 
     LEA DX, login_succ
     MOV AH, 09h               ; DOS function to display a string 
@@ -419,11 +445,20 @@ REGISTER_SUCCESSFUL:
     JMP ACC_LOOP
 
 landing_exitING:
+    CALL CLEAR_SCREEN
 
     MOV DL, 0DH
     MOV AH, 02H
     INT 21H
     MOV DL, 0AH
+    INT 21H
+
+    CALL DISPLAY_HEADER
+ 
+    ;CALL BRANDING_COLORS
+
+    LEA DX, branding2
+    MOV AH, 09H
     INT 21H
 
     LEA DX, landing_exit_prompt
@@ -493,6 +528,7 @@ typed_EXIT:
     JMP EXITING
 
 CREATE_ORDER:
+    CALL CLEAR_SCREEN
 
     MOV DL, 0DH
     MOV AH, 02H
@@ -511,6 +547,8 @@ CREATE_ORDER:
     JMP MENU_LOOP
 
 CREATE_ORDER2:
+    CALL CLEAR_SCREEN
+    
     mov si, OFFSET login_username_input+2
     mov di, OFFSET username2+2
     CALL STRING_CHECKER          ; checks if current user is account 1, creates order for acc 1 if yes, jumps to 2 if no
@@ -522,12 +560,15 @@ CREATE_ORDER2:
     JMP MENU_LOOP
 
 CREATE_ORDER3:
+    CALL CLEAR_SCREEN
+    
     CALL INPUT_order_3
 
     JMP MENU_LOOP
 
 REVIEW_ORDER:
-    
+    CALL CLEAR_SCREEN
+        
     MOV DL, 0DH
     MOV AH, 02H
     INT 21H
@@ -542,9 +583,13 @@ REVIEW_ORDER:
 
     CALL REVIEW_order_1
 
+    CALL PRESS_TO_CONTINUE
+
     JMP MENU_LOOP
 
 REVIEW_ORDER2:
+    CALL CLEAR_SCREEN
+    
     mov si, OFFSET login_username_input+2
     mov di, OFFSET username2+2
     CALL STRING_CHECKER          ; checks if current user is account 1, reviews order for acc 1 if yes, jumps to 2 if no
@@ -552,16 +597,21 @@ REVIEW_ORDER2:
     je REVIEW_ORDER3
 
     CALL REVIEW_order_2
+    CALL PRESS_TO_CONTINUE
 
     JMP MENU_LOOP
 
 REVIEW_ORDER3:
+    CALL CLEAR_SCREEN
+    
     CALL REVIEW_order_3
+    CALL PRESS_TO_CONTINUE
 
     JMP MENU_LOOP
 
 DELETE_ORDER:
-    
+    CALL CLEAR_SCREEN
+        
     MOV DL, 0DH
     MOV AH, 02H
     INT 21H
@@ -630,6 +680,8 @@ DELETING_ORDER:
     JMP MENU_LOOP
 
 DELETING_ORDER2:
+    CALL CLEAR_SCREEN
+    
     mov si, OFFSET login_username_input+2
     mov di, OFFSET username2+2
     CALL STRING_CHECKER          ; checks if current user is account 1, deletes order for acc 1 if yes, jumps to 2 if no
@@ -641,6 +693,8 @@ DELETING_ORDER2:
     JMP MENU_LOOP
 
 DELETING_ORDER3:
+    CALL CLEAR_SCREEN
+    
     CALL reset_all_zero_acc3
 
     JMP MENU_LOOP
@@ -653,6 +707,7 @@ CANCELING_DELETE:
     JMP MENU_LOOP       ; returns back to menu screen without deleting orders
 
 EXITING:
+    CALL CLEAR_SCREEN
 
     MOV DL, 0DH
     MOV AH, 02H
@@ -794,7 +849,7 @@ LOGIN_ACC PROC
 
     LEA DX, login_username_input
     MOV AH, 0Ah               ; DOS function to read a string 
-    INT 21h 
+    INT 21h
 
     LEA DX, newline
     MOV AH, 09h               ; DOS function to display a string 
@@ -836,6 +891,19 @@ CLEAR_SCREEN PROC
     INT 10H
     RET
 CLEAR_SCREEN ENDP
+
+PRESS_TO_CONTINUE PROC
+    ; Press to continue
+    LEA DX, enter_blank
+    MOV AH, 09h               ; DOS function to display a string 
+    INT 21h 
+
+    LEA DX, blank_input
+    MOV AH, 0Ah               ; DOS function to read a string 
+    INT 21h
+    
+    CALL CLEAR_SCREEN
+PRESS_TO_CONTINUE ENDP
 
 DISPLAY_HEADER PROC
     
@@ -1040,6 +1108,9 @@ INPUT_order_1 PROC
     
     MOV AX, sum1                 ; prints overall total price
     CALL DISPLAY_NUM2
+
+    ; Press to continue
+    CALL PRESS_TO_CONTINUE
     
     RET
 INPUT_order_1 ENDP
@@ -1131,6 +1202,9 @@ INPUT_order_2 PROC
     
     MOV AX, sum2                 ; prints overall total price
     CALL DISPLAY_NUM2
+
+    ; Press to continue
+    CALL PRESS_TO_CONTINUE
     
     RET
 INPUT_order_2 ENDP
@@ -1222,7 +1296,10 @@ INPUT_order_3 PROC
     
     MOV AX, sum3                 ; prints overall total price
     CALL DISPLAY_NUM2
-    
+
+    ; Press to continue
+    CALL PRESS_TO_CONTINUE
+
     RET
 INPUT_order_3 ENDP
 
@@ -1679,6 +1756,7 @@ print_acc PROC
 print_acc ENDP
 
 print_menu PROC
+    CALL CLEAR_SCREEN
 
     LEA DX, space
     MOV AH, 09H
