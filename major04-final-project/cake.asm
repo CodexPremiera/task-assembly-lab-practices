@@ -30,11 +30,7 @@
                     DB '                                     n2MX#MMMMM@1.                             ',13, 10
                     DB '                               .X#MMMMMMMMMMMMMMMMMMMV                         ',13, 10
                     DB '                           cEMMMMMMMMMMMMMMMMMMMMMMMMM@                        ',13, 10
-                    DB '                     .n@MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM                       ',13, 10
-                    DB '    -----------     MMMMMMMM@@#SBWWB#@@#SWWWQQQWWWWB#@MM.     ------------     ',13, 10
-                    DB '    ONCE TASTED     MM                                ;M.     NEVER WANTED     ',13, 10
-                    DB '    -----------   .MMM                                OM      ------------     ',13, 10
-                    DB '                    6MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM                       ',13, 10
+                    DB '                     .n@MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM                                       DB '                    6MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM                       ',13, 10
                     DB '                    BM                                VM                       ',13, 10
                     DB '                    @M .............................. WM                       ',13, 10
                     DB '                    .A8QQWWWWWWWWWWWWWWWWWWWWWWWWWWW0AZ2                       ',13, 10
